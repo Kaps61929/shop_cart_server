@@ -8,7 +8,7 @@ const userRouter=require('./routes/user');
 const  port=process.env.PORT || 8123;
 var  ip="192.168.77.225";
 var app =express();
-const user = require("../server/models/user");
+const user = require("./models/user");
 //middleware
 app.use(express.json());
 app.use(authRouter);
