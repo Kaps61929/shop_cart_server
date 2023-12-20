@@ -17,7 +17,7 @@ adminRouter.post("/admin/add-product", admin,clearcache,async (req, res) => {
       quantity,
       price,
       category,
-    });
+    }).cache();
     product = await product.save();
     res.json(product);
   } catch (e) {
@@ -36,10 +36,10 @@ adminRouter.get("/admin/get-products", admin, async (req, res) => {
 });
 
 // Delete the product
-adminRouter.post("/admin/delete-product", admin, async (req, res) => {
+adminRouter.post("/admin/delete-product", admin,clearcache, async (req, res) => {
   try {
     const { id } = req.body;
-    let product = await Product.findByIdAndDelete(id);
+    let product = await Product.findByIdAndDelete(id).cache();
     res.json(product);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -48,14 +48,14 @@ adminRouter.post("/admin/delete-product", admin, async (req, res) => {
 
 adminRouter.get("/admin/get-orders", admin, async (req, res) => {
   try {
-    const orders = await Order.find({});
+    const orders = await Order.find({}).cache();
     res.json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-adminRouter.post("/admin/change-order-status", admin, async (req, res) => {
+adminRouter.post("/admin/change-order-status", admin,clearcache, async (req, res) => {
   try {
     const { id, status } = req.body;
     let order = await Order.findById(id);

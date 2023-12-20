@@ -38,7 +38,7 @@ authRouter.post("/api/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).cache();
     if (!user) {
       return res
         .status(400)
