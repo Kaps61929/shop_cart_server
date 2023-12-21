@@ -39,7 +39,7 @@ adminRouter.get("/admin/get-products", admin, async (req, res) => {
 adminRouter.post("/admin/delete-product", admin,clearcache, async (req, res) => {
   try {
     const { id } = req.body;
-    let product = await Product.findByIdAndDelete(id).cache();
+    let product = await Product.findByIdAndDelete(id);
     res.json(product);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -48,7 +48,7 @@ adminRouter.post("/admin/delete-product", admin,clearcache, async (req, res) => 
 
 adminRouter.get("/admin/get-orders", admin, async (req, res) => {
   try {
-    const orders = await Order.find({}).cache();
+    const orders = await Order.find({});
     res.json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
