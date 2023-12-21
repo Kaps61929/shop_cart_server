@@ -16,7 +16,7 @@ const client= redis.createClient(redisurl)
      // console.error('function exist111');
       client.hGet = util.promisify(client.hget).bind(client);
       client.hSet = util.promisify(client.hset).bind(client);
-       client.del = util.promisify(client.del).bind(client);
+      client.flushdb = util.promisify(client.flushdb).bind(client);
     } else {
       console.error('Error: Redis methods not found or invalid.');
     }
@@ -51,7 +51,7 @@ const client= redis.createClient(redisurl)
         
     }
     async function clearcache(hashkey) {
-     await client.del(JSON.stringify(hashkey));
+     await client.flushdb();
   }
 
  
